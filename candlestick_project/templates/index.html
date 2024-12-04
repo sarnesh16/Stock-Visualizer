@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Candlestick Chart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin: 50px auto;
+            max-width: 600px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input, button, select {
+            padding: 10px;
+            margin: 5px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Stock Candlestick Chart</h1>
+        <form method="POST">
+            <input type="text" name="ticker" placeholder="Enter Stock Ticker (e.g., AAPL)" required>
+            <select name="date_range">
+                <option value="1mo">Last Month</option>
+                <option value="1y">Last Year</option>
+                <option value="max">Max</option>
+            </select>
+            <input type="date" name="start_date" required>
+            <input type="date" name="end_date" required>
+            <button type="submit">Generate Chart</button>
+        </form>
+        {% if chart_path %}
+            <h2>Chart for {{ ticker }}</h2>
+            <img src="{{ chart_path }}" alt="Candlestick Chart">
+        {% elif error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
